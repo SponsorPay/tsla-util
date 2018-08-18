@@ -1,7 +1,6 @@
 import {Fallback, getFallback} from "./fallback"
 import {Nullable} from "./nullable"
 
-
 export class Option<T> {
   static none = new Option(null)
 
