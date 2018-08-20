@@ -15,6 +15,10 @@ export class Option<T> {
     return this as any as Option<E>
   }
 
+  get isEmpty() {
+    return this.t == null
+  }
+
   get() {
     return this.t
   }
