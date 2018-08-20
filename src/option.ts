@@ -32,12 +32,12 @@ export class Option<T> {
     return t == null ? getFallback(fallback) : t
   }
 
-  map<E>(fn: (t: T) => E) {
+  map<E>(fn: (t: T) => Nullable<E>) {
     const {t} = this
     return t == null ? Option.none.typed<E>() : new Option(fn(t))
   }
 
   flatMap<E>(fn: (t: T) => Option<E>): Option<E> {
-    return this.map(t => fn(t).get()!)
+    return this.map(t => fn(t).get())
   }
 }
