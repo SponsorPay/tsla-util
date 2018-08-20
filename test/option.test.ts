@@ -10,5 +10,6 @@ describe("option", function () {
     expect(Option.of({a: 1}).flatMap(e => Option.of(e.a)).get()).to.eq(1)
     expect(Option.of(null! as {a: number}).map(e => e.a).get()).to.eq(null)
     expect(Option.of(null).isEmpty).to.be.true
+    expect(Option.of({a: 1}).isNotEmpty).to.be.true
   })
 })
