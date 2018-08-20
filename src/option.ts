@@ -19,6 +19,10 @@ export class Option<T> {
     return this.t == null
   }
 
+  get isNotEmpty() {
+    return !this.isEmpty
+  }
+
   get() {
     return this.t
   }
