@@ -9,7 +9,7 @@ export class TryAsync<T> {
   constructor(private fn: () => Promise<T>) {}
 
   async getOrElse(fallback: Fallback<T>): Promise<T> {
-    return new Option(await this.get()).getOrElse(fallback)
+    return Option.of(await this.get()).getOrElse(fallback)
   }
 
   async get(): Promise<T | null> {

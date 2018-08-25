@@ -11,7 +11,7 @@ export class Try<T> {
 
   getOrElse(fallback: Fallback<T>): T {
     const when = this.get()
-    return new Option(when).getOrElse(fallback)
+    return Option.of(when).getOrElse(fallback)
   }
 
   get(): T | null {

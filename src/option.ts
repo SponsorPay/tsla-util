@@ -4,15 +4,11 @@ import {Nullable} from "./nullable"
 export class Option<T> {
   static none = new Option(null)
 
-  static of<T>(t: Nullable<T>) {
-    return new Option(t)
+  static of<T>(t: Nullable<T>): Option<T> {
+    return t == null ? Option.none as any : new Option(t)
   }
 
-  constructor(private t: Nullable<T>) {
-  }
-
-  typed<E>() {
-    return this as any as Option<E>
+  private constructor(private t: Nullable<T>) {
   }
 
   get isEmpty() {
@@ -23,21 +19,19 @@ export class Option<T> {
     return !this.isEmpty
   }
 
-  get() {
+  get get() {
     return this.t
   }
 
   getOrElse(fallback: Fallback<T>): T {
-    const t = this.get()
-    return t == null ? getFallback(fallback) : t
+    return this.isEmpty ? getFallback(fallback) : this.get!
   }
 
-  map<E>(fn: (t: T) => Nullable<E>) {
-    const {t} = this
-    return t == null ? Option.none.typed<E>() : new Option(fn(t))
+  map<E>(fn: (t: T) => Nullable<E>): Option<E> {
+    return this.isEmpty ? Option.none as any : Option.of(fn(this.get!))
   }
 
   flatMap<E>(fn: (t: T) => Option<E>): Option<E> {
-    return this.map(t => fn(t).get())
+    return this.isEmpty ? Option.none as any : fn(this.get!)
   }
 }
