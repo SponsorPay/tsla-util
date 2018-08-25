@@ -1,5 +1,7 @@
-import {Option} from "../src"
 import {expect} from "chai"
+import {Option} from "../src"
+import {None} from "../src/option"
+
 require("chai").should()
 
 describe("option", function () {
@@ -14,8 +16,15 @@ describe("option", function () {
   })
 
   it("Option.none should be safe", () => {
-    const none = Option.none as Option<any>
+    const none = None.none as Option<any>
     none.map(x => x.toString()).should.eq(Option.of(null))
     none.flatMap(x => Option.of(x.toString())).should.eq(Option.of(null))
+  })
+
+  it("Some(null) should be safe", () => {
+    Option.of("value").map(() => null).map(() => null).should.eq(None.none)
+    // const some = new Some(null) as Option<any>
+    // some.map(x => x.toString()).should.eq(Option.of(null))
+    // some.flatMap(x => Option.of(x!.toString())).should.eq(Option.of(null))
   })
 })

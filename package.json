@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf build && npm run compile",
+    "build": "rm -rf lib && npm run compile",
     "ci": "npm run build && npm run check-coverage",
     "compile": "tsc -p tsconfig.prod.json",
     "test": "mocha '{test,xe2e}/**/*.ts*' --require=ts-node/register --require mocha-clean",
@@ -36,5 +36,8 @@
   },
   "peerDependencies": {
     "tslib": "^1.9.3"
+  },
+  "dependencies": {
+    "ts-trait": "^4.1.0"
   }
 }
