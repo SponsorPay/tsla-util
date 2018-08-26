@@ -1,6 +1,4 @@
 export * from "./option"
 export * from "./try"
-export * from "./tryAsync"
 export * from "./fallback"
-export * from "./when"
 export * from "./nullable"

@@ -1,5 +1,5 @@
-import {Fallback} from "./fallback"
-import {Option} from "./option"
+import {Fallback} from "../fallback"
+import {Option} from "../option"
 
 export class Try<T> {
   static of<T>(fn: () => T) {

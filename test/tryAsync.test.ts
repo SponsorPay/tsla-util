@@ -1,5 +1,5 @@
 import * as assert from "assert"
-import {TryAsync, Option} from "../src/"
+import {TryAsync} from "../src"
 
 require("chai").should()
 

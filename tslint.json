@@ -28,7 +28,6 @@
       "no-shadowed-variable": false,
       "no-require-imports": false,
       "no-var-requires": false,
-      "no-unused-expression": false,
       "no-console": false,
       "quotemark": [],
       "max-classes-per-file": [false],
