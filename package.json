@@ -35,7 +35,7 @@
     "typescript": "^3.0.1"
   },
   "peerDependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "*"
   },
   "dependencies": {
     "ts-trait": "^4.1.0"

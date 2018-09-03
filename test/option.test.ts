@@ -27,4 +27,8 @@ describe("option", function () {
     // some.map(x => x.toString()).should.eq(Option.of(null))
     // some.flatMap(x => Option.of(x!.toString())).should.eq(Option.of(null))
   })
+
+  it("Option.map should be safe", () => {
+    Option.of({a: null as any}).map(e => e.a).map(e => e.b).should.eq(None.none)
+  })
 })
