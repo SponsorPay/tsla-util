@@ -22,8 +22,8 @@ jobs:
       - run:
           name: Publish
           command: |
-            git config --global user.email "$GIT_AUTHOR_EMAIL"
-            git config --global user.name "$GIT_AUTHOR_NAME"
+            git config --global user.email circleci@circleci.com
+            git config --global user.name CircleCI
             npm run cd
 workflows:
   version: 2
