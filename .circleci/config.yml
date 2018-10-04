@@ -14,7 +14,18 @@ jobs:
       - run:
           name: Test
           command: npm test
+  publish:
+    steps:
+       run:
+        name: Stat
+        command: stat lib
 workflows:
   version: 2
    jobs:
-      - build
+     - publish
+     - test_stage:
+        requires:
+          publish
+        filters:
+          branches:
+            only: stage
