@@ -25,7 +25,7 @@ workflows:
     - publish
     - test_stage:
       requires:
-        publish
+        - publish
       filters:
         branches:
           only: master
