@@ -16,7 +16,7 @@ jobs:
           command: npm test
   publish:
     steps:
-       run:
+      - run:
         name: Stat
         command: stat lib
 workflows:
