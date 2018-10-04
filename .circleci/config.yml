@@ -21,11 +21,12 @@ jobs:
         command: stat lib
 workflows:
   version: 2
-  jobs:
-    - publish
-    - test_stage:
-      requires:
-        - publish
-      filters:
-        branches:
-          only: master
+  build_and_publish:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
