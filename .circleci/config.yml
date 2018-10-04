@@ -18,14 +18,7 @@ jobs:
           command: npm test
       - run:
           name: Publish
-          command: npm test
-  publish:
-    docker:
-          - image: circleci/node:8.12.0
-    steps:
-      - run:
-        name: Stat
-        command: stat lib
+          command: npm run cd
 workflows:
   version: 2
   build_and_publish:
