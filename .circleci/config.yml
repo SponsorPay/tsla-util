@@ -10,9 +10,14 @@ jobs:
           command: npm install
       - run:
           name: Compile
-          command: npm run build
+          command: |
+            npm run build
+            npm run lint
       - run:
           name: Test
+          command: npm test
+      - run:
+          name: Publish
           command: npm test
   publish:
     docker:
@@ -26,9 +31,3 @@ workflows:
   build_and_publish:
     jobs:
       - build
-      - publish:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
