@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: circleci/node:8.12.0
     steps:
+      - add_ssh_keys:
+        fingerprints:
+          - "15:97:81:6b:69:3c:a2:83:a9:1c:ac:11:c0:9d:0f:ec"
       - checkout
       - run:
           name: Install
