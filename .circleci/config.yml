@@ -24,6 +24,7 @@ jobs:
           command: |
             git config --global user.email circleci@circleci.com
             git config --global user.name CircleCI
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
             npm run cd
 workflows:
   version: 2
