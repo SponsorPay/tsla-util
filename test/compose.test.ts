@@ -1,5 +1,4 @@
 import "../src/compose"
-import {tuple} from "../src/compose"
 
 require("chai").should()
 

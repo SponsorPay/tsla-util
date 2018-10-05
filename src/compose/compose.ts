@@ -1,5 +1,4 @@
 import {extension} from "ts-trait/build/extension"
-import {Tuple} from "./tuple"
 
 export type Fun1<P = any, R1 = any> = (p: P) => R1;
 export type Fun2<P1 = any, P2 = any, R1 = any> = (p1: P1, p2: P2) => R1;
@@ -19,11 +18,7 @@ export class FunctionCompose {
   // tslint:disable-next-line
   compose(this: Function, other: Function) {
     return (...args: any[]) => {
-      const r = this(...args)
-      if (Tuple.isTuple(r)) {
-        return other(...r)
-      }
-      return other(r)
+      return other(this(...args))
     }
   }
 }
