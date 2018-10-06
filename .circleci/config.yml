@@ -25,7 +25,8 @@ jobs:
             git config --global user.email circleci@circleci.com
             git config --global user.name CircleCI
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            if test "$CIRCLE_BRANCH" = "master"; then npm run cd; else npm run lock && git push; fi
+            npm run lock
+            if test "$CIRCLE_BRANCH" = "master"; then npm run cd; else git push; fi
 workflows:
   version: 2
   build_and_publish:
