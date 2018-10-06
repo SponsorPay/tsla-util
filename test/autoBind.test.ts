@@ -22,4 +22,21 @@ describe("auto bind", function () {
 
     assert(bar() === "bar")
   })
+
+  it("should work for methods only", () => {
+    let error = false
+    try {
+      class Foo {
+        _bar = "bar"
+
+        @autoBind
+        get bar() {
+          return this._bar
+        }
+      }
+    } catch (e) {
+      error = true
+    }
+    assert(error)
+  })
 })

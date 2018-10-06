@@ -9,15 +9,17 @@
     "ci": "npm run lint && npm run build && npm test && npm version patch",
     "compile": "tsc -p tsconfig.prod.json",
     "test-all": "npm run test && npm run test:es",
-    "test": "mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
+    "test": "npm run test:commonjs && npm run test:es",
+    "test:commonjs": "mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
     "test:es": "export TS_NODE_PROJECT=tsconfig.es.json && mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
     "watch": "tsc -p tsconfig.prod.json -w",
-    "coverage": "nyc --extension=.ts --extension=.tsx --include=src/**/*.ts* --all --reporter=cobertura mocha --require=ts-node/register --require source-map-support/register --recursive test/**/*.ts*",
+    "coverage": "nyc --extension=.ts --extension=.tsx --include=src/**/*.ts* --all --reporter=html mocha --require=ts-node/register --require source-map-support/register --recursive test/**/*.ts*",
     "check-coverage": "rm -rf .nyc_output && npm run coverage && nyc check-coverage",
     "publish-local": "npm publish --@revdesk:registry=http://localhost:4873 --force",
     "lint": "tslint --fix {src,test}/**/*.ts*",
     "cd": "standard-version -m \"chore(release): %s [ci skip]\" && git push --follow-tags origin master && npm publish",
-    "lock": "git add 'package-lock.json' && (git diff-index --quiet HEAD || git commit -m 'Lock')"
+    "lock": "git add 'package-lock.json' && (git diff-index --quiet HEAD || git commit -m 'Lock')",
+    "codecov": "nyc report --reporter=json --reporter=html && codecov -f coverage/*.json"
   },
   "files": [
     "lib"
@@ -31,8 +33,10 @@
     "@types/node": "^9.6.4",
     "@types/statuses": "^1.3.0",
     "chai": "^4.1.2",
+    "codecov": "^3.1.0",
     "mocha": "^5.0.5",
     "mocha-clean": "^1.0.0",
+    "nyc": "^13.0.1",
     "standard-version": "^4.4.0",
     "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
