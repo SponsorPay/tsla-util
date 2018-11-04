@@ -9,8 +9,8 @@ describe("delay.test", function () {
     setTimeout(() => {
       flag = true
     }, 50)
-    expect(flag).to.be.false
+    expect(flag).to.eq(false)
     await delay(100)
-    expect(flag).to.be.true
+    expect(flag).to.eq(true)
   })
 })
