@@ -1,5 +1,5 @@
 import {expect} from "chai"
-import {ChildAppendable, ElementCreator, Linkable, loadStylesheet} from "../../src/dom/loadStylesheet"
+import {loadStylesheet} from "../../src/dom/loadStylesheet"
 
 require("chai").should()
 
@@ -7,7 +7,7 @@ interface MockElement extends HTMLElement {
 
 }
 
-class MockElement implements ChildAppendable, Linkable, HTMLElement {
+class MockElement implements HTMLElement {
   elements: Node[] = []
   attrs: Map<string, string> = new Map()
 
@@ -27,7 +27,11 @@ class MockElement implements ChildAppendable, Linkable, HTMLElement {
   }
 }
 
-class MockDocument implements ElementCreator {
+interface MockDocument extends Document {
+
+}
+
+class MockDocument implements Document {
   createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElement {
     return new MockElement();
   }
