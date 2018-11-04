@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/kobiburnley/tsla-util/compare/v0.4.0...v0.5.0) (2018-11-04)
+
+
+### Features
+
+* **dom:** load-stylesheet ([#5](https://github.com/kobiburnley/tsla-util/issues/5)) ([31f8b22](https://github.com/kobiburnley/tsla-util/commit/31f8b22))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/kobiburnley/tsla-util/compare/v0.3.1...v0.4.0) (2018-11-04)
 
