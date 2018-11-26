@@ -13,10 +13,10 @@
       "es2015.promise",
       "es2015.core"
     ],
-    "target": "es5",
+    "target": "es2015",
     "strict": true,
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "es",
     "sourceRoot": "src",
     "jsx": "react",
     "importHelpers": true,

@@ -3,5 +3,6 @@
 *.iml
 /build
 /lib
+/es
 /.nyc_output
 /coverage
