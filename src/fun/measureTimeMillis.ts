@@ -1,4 +1,3 @@
-
 export async function measureTimeMillis<T>(block: () => T | Promise<T>) {
   const start = Date.now()
   await block()
