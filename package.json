@@ -5,12 +5,14 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && npm run compile",
+    "build": "rm -rf lib && rm -rf es && npm run compile",
     "ci": "npm run lint && npm run build && npm test && npm version patch",
-    "compile": "tsc -p tsconfig.prod.json",
+    "compile": "npm run compile:cjs && npm run compile:es",
+    "compile:cjs": "tsc -p tsconfig.prod.json",
+    "compile:es": "tsc -p tsconfig.prod.es.json",
     "test-all": "npm run test && npm run test:es",
-    "test": "npm run test:commonjs && npm run test:es",
-    "test:commonjs": "mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
+    "test": "npm run test:cjs && npm run test:es",
+    "test:cjs": "mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
     "test:es": "export TS_NODE_PROJECT=tsconfig.es.json && mocha 'test/**/*.ts*' --require=ts-node/register --require mocha-clean",
     "watch": "tsc -p tsconfig.prod.json -w",
     "coverage": "nyc --extension=.ts --extension=.tsx --include=src/**/*.ts* --all --reporter=html mocha --require=ts-node/register --require source-map-support/register --recursive 'test/**/*.ts*'",
@@ -23,7 +25,7 @@
     "codecov": "nyc report --reporter=json --reporter=html && codecov -f coverage/*.json"
   },
   "files": [
-    "lib"
+    "lib", "es"
   ],
   "author": "",
   "license": "ISC",

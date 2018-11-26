@@ -16,7 +16,7 @@
     "target": "es2015",
     "strict": true,
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "es",
     "jsx": "react",
     "importHelpers": true,
     "skipLibCheck": true,
@@ -25,6 +25,7 @@
     "baseUrl": "."
   },
   "include": [
-    "src/**/*.ts*", "test/**/*.ts*"
+    "src/**/*.ts*",
+    "test/**/*.ts*"
   ]
 }
