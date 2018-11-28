@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/kobiburnley/tsla-util/compare/v0.7.0...v0.8.0) (2018-11-28)
+
+
+### Features
+
+* poll, stylesheet poll ([#8](https://github.com/kobiburnley/tsla-util/issues/8)) ([dad553d](https://github.com/kobiburnley/tsla-util/commit/dad553d))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/kobiburnley/tsla-util/compare/v0.6.0...v0.7.0) (2018-11-26)
 
