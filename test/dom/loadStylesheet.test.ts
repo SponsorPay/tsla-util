@@ -1,5 +1,5 @@
 import {expect} from "chai"
-import {loadStylesheet} from "../../src/dom/loadStylesheet"
+import {loadStylesheet, loadStylesheetPoll, loadStylesheetPreload} from "../../src/dom/loadStylesheet"
 
 interface MockElement extends HTMLElement {
 
@@ -56,14 +56,45 @@ class MockDocument implements Document {
 }
 
 describe("loadStylesheet.test", function () {
+  it("should loadStylesheetPoll", async () => {
+    const doc = new MockDocument()
+    const head = new MockElement()
+    const promise = loadStylesheetPoll("https://example.com/style.css", head, doc)
+    const el = head.elements[0]
+    expect(el).to.be.instanceOf(MockElement)
+    if (el instanceof MockElement) {
+      expect(el.getAttribute("href")).to.eq("https://example.com/style.css")
+      expect(el.getAttribute("rel")).to.eq("stylesheet")
+      expect(el.getAttribute("as")).to.eq("style")
+      setTimeout(() => {
+        doc.styleSheets.arr.push({
+          href: "https://example.com/style.css"
+        } as any)
+      }, 10)
+      await promise
+    }
+  })
+
+  it("should loadStylesheetPreload", async () => {
+    const doc = new MockDocument()
+    const head = new MockElement()
+    const promise = loadStylesheetPreload("https://example.com/style.css", head, doc)
+    const el = head.elements[0]
+    expect(el).to.be.instanceOf(MockElement)
+    if (el instanceof MockElement) {
+      expect(el.getAttribute("href")).to.eq("https://example.com/style.css")
+      expect(typeof el.onload).to.eq("function")
+      expect(el.getAttribute("rel")).to.eq("preload")
+      expect(el.getAttribute("as")).to.eq("style")
+      el.onload!(null as any)
+      await promise
+      expect(el.getAttribute("rel")).to.eq("stylesheet")
+    }
+  })
+
   it("should loadStylesheet", async () => {
     const doc = new MockDocument()
     const head = new MockElement()
-    const promise = loadStylesheet("https://example.com/style.css", head, doc)
-    expect(head.elements.length).to.eq(2)
-    expect(head.elements.every(el => {
-      return el instanceof MockElement &&
-        el.getAttribute("href") === "https://example.com/style.css"
-    })).to.eq(true)
+    loadStylesheet("https://example.com/style.css", head, doc)
   })
 })
