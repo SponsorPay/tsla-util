@@ -51,5 +51,3 @@ export async function loadStylesheetPreload(
   await promise
   link.setAttribute("rel", "stylesheet")
 }
-
-

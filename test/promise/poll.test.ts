@@ -21,4 +21,3 @@ describe("poll.test", function () {
     expect(error.name).to.eq("PollLimitError")
   })
 })
-
