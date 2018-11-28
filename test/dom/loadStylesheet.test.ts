@@ -100,8 +100,14 @@ describe("loadStylesheet.test", function () {
   it("should loadStylesheet", async () => {
     const doc = new MockDocument()
     const head = new MockElement()
-    loadStylesheet("https://example.com/style.css", {
+    const promise = loadStylesheet("https://example.com/style.css", {
       appendTo: head, doc
     })
+    setTimeout(() => {
+      doc.styleSheets.arr.push({
+        href: "https://example.com/style.css"
+      } as any)
+    }, 10)
+    await promise
   })
 })
