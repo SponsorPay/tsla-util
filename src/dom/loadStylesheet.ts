@@ -1,5 +1,11 @@
 import {defer} from "../promise/defer"
-import {poll} from "../promise/poll"
+import {poll, PollOptions} from "../promise/poll"
+
+export interface LoadStylesheetOptions {
+  pollOptions?: PollOptions
+  doc?: Document
+  appendTo?: HTMLElement
+}
 
 function isStylesheetInPage(href: string, styleSheets: StyleSheetList) {
   for (let i = 0; i < styleSheets.length; i++) {
@@ -13,34 +19,33 @@ function isStylesheetInPage(href: string, styleSheets: StyleSheetList) {
 
 export async function loadStylesheet(
   href: string,
-  appendTo: HTMLElement = document.head,
-  doc = document
+  options: LoadStylesheetOptions = {},
 ) {
   return Promise.race([
-    loadStylesheetPreload(href, appendTo, doc),
-    loadStylesheetPoll(href, appendTo, doc),
+    loadStylesheetPreload(href, options),
+    loadStylesheetPoll(href, options),
   ])
 }
 
 export async function loadStylesheetPoll(
   href: string,
-  appendTo: HTMLElement = document.head,
-  doc = document
+  options: LoadStylesheetOptions = {},
 ) {
+  const {doc = document, appendTo = document.head, pollOptions} = options
   const {promise, resolve} = defer<void>()
   const link = doc.createElement("link")
   link.setAttribute("href", href)
   link.setAttribute("as", "style")
   link.setAttribute("rel", "stylesheet")
   appendTo.appendChild(link)
-  return poll(() => isStylesheetInPage(href, doc.styleSheets))
+  return poll(() => isStylesheetInPage(href, doc.styleSheets), pollOptions)
 }
 
 export async function loadStylesheetPreload(
   href: string,
-  appendTo: HTMLElement = document.head,
-  doc = document
+  options: LoadStylesheetOptions = {},
 ) {
+  const {doc = document, appendTo = document.head} = options
   const {promise, resolve} = defer<void>()
   const link = doc.createElement("link")
   link.setAttribute("href", href)

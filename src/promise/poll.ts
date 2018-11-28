@@ -1,4 +1,4 @@
-interface PollOptions {
+export interface PollOptions {
   delay?: number
   retries?: number
 }

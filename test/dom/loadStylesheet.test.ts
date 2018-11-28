@@ -59,7 +59,10 @@ describe("loadStylesheet.test", function () {
   it("should loadStylesheetPoll", async () => {
     const doc = new MockDocument()
     const head = new MockElement()
-    const promise = loadStylesheetPoll("https://example.com/style.css", head, doc)
+    const promise = loadStylesheetPoll("https://example.com/style.css", {
+      appendTo: head,
+      doc
+    })
     const el = head.elements[0]
     expect(el).to.be.instanceOf(MockElement)
     if (el instanceof MockElement) {
@@ -78,7 +81,9 @@ describe("loadStylesheet.test", function () {
   it("should loadStylesheetPreload", async () => {
     const doc = new MockDocument()
     const head = new MockElement()
-    const promise = loadStylesheetPreload("https://example.com/style.css", head, doc)
+    const promise = loadStylesheetPreload("https://example.com/style.css", {
+      appendTo: head, doc
+    })
     const el = head.elements[0]
     expect(el).to.be.instanceOf(MockElement)
     if (el instanceof MockElement) {
@@ -95,6 +100,8 @@ describe("loadStylesheet.test", function () {
   it("should loadStylesheet", async () => {
     const doc = new MockDocument()
     const head = new MockElement()
-    loadStylesheet("https://example.com/style.css", head, doc)
+    loadStylesheet("https://example.com/style.css", {
+      appendTo: head, doc
+    })
   })
 })
