@@ -1,8 +1,6 @@
 import {expect} from "chai"
 import {loadStylesheet} from "../../src/dom/loadStylesheet"
 
-require("chai").should()
-
 interface MockElement extends HTMLElement {
 
 }
@@ -27,11 +25,31 @@ class MockElement implements HTMLElement {
   }
 }
 
+interface MockStyleSheets extends StyleSheetList {
+
+}
+
+class MockStyleSheets implements StyleSheetList {
+  arr: StyleSheet[] = []
+
+  item(index: number) {
+    return this.arr[index]
+  }
+
+  [index: number]: StyleSheet
+
+  get length() {
+    return this.arr.length
+  }
+}
+
 interface MockDocument extends Document {
 
 }
 
 class MockDocument implements Document {
+  styleSheets = new MockStyleSheets()
+
   createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElement {
     return new MockElement();
   }
@@ -42,16 +60,10 @@ describe("loadStylesheet.test", function () {
     const doc = new MockDocument()
     const head = new MockElement()
     const promise = loadStylesheet("https://example.com/style.css", head, doc)
-    const el = head.elements[0]
-    expect(el).to.be.instanceOf(MockElement)
-    if (el instanceof MockElement) {
-      expect(el.getAttribute("href")).to.eq("https://example.com/style.css")
-      expect(typeof el.onload).to.eq("function")
-      expect(el.getAttribute("rel")).to.eq("preload")
-      expect(el.getAttribute("as")).to.eq("style")
-      el.onload!(null as any)
-      await promise
-      expect(el.getAttribute("rel")).to.eq("stylesheet")
-    }
+    expect(head.elements.length).to.eq(2)
+    expect(head.elements.every(el => {
+      return el instanceof MockElement &&
+        el.getAttribute("href") === "https://example.com/style.css"
+    })).to.eq(true)
   })
 })
