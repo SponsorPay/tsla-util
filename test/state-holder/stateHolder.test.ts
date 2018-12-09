@@ -1,5 +1,5 @@
 import {applyMixins} from "ts-trait"
-import {HasState, LocalStateHolder, StateHolder} from "../src/state-holder"
+import {HasState, LocalStateHolder, StateHolder} from "../../src/state-holder"
 import {expect} from "chai"
 
 interface Ctrl extends HasState<{name: string}> {
