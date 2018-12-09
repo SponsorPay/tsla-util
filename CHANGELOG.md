@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/kobiburnley/tsla-util/compare/v0.9.0...v0.9.1) (2018-12-09)
+
+
+### Bug Fixes
+
+* omit type ([#10](https://github.com/kobiburnley/tsla-util/issues/10)) ([2940498](https://github.com/kobiburnley/tsla-util/commit/2940498))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/kobiburnley/tsla-util/compare/v0.8.0...v0.9.0) (2018-12-09)
 
