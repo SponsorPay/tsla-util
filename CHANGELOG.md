@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/kobiburnley/tsla-util/compare/v0.10.0...v0.11.0) (2018-12-27)
+
+
+### Features
+
+* reach bottom listener ([#12](https://github.com/kobiburnley/tsla-util/issues/12)) ([b98d3b5](https://github.com/kobiburnley/tsla-util/commit/b98d3b5))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/kobiburnley/tsla-util/compare/v0.9.1...v0.10.0) (2018-12-24)
 
