@@ -2,7 +2,6 @@ import {LodashThrottle} from "lodash/fp"
 import {ScrollPosition} from "./scrollPosition"
 const throttle: LodashThrottle = require("lodash/fp/throttle")
 
-
 export interface ReactBottomListenerParams {
   win: Window
   body: Element
