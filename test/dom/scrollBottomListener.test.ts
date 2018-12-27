@@ -1,6 +1,7 @@
 import {expect} from "chai"
 import {loadStylesheet, loadStylesheetPoll, loadStylesheetPreload} from "../../src/dom/loadStylesheet"
 import {ReactBottomListener} from "../../src/dom/reactBottomListener"
+import {EventEmitter} from "events"
 
 interface MockElement extends HTMLElement {
 
@@ -15,8 +16,10 @@ interface MockWindow extends Window {
 
 }
 
-class MockWindow implements Window {
+class MockWindow extends EventEmitter implements Window {
   scrollY: number = 0
+
+  addEventListener = this.on.bind(this)
 }
 
 describe("loadStylesheet.test", function () {
@@ -24,41 +27,40 @@ describe("loadStylesheet.test", function () {
     const body = new MockElement()
     const win = new MockWindow()
     let reached = 0
-    const listener = new ReactBottomListener({
+    const unsub = new ReactBottomListener({
       body,
       win,
       offset: 25,
       onReachBottom: () => {
         reached++
       }
-    })
-    listener.handleScroll()
+    }).subscribe()
+
+    win.emit("scroll")
 
     body.scrollHeight = 100
     body.clientHeight = 50
-    listener.handleScroll()
-
+    win.emit("scroll")
     expect(reached).to.eq(0)
 
     win.scrollY = 10
-    listener.handleScroll()
+    win.emit("scroll")
     expect(reached).to.eq(0)
 
     win.scrollY = 25
-    listener.handleScroll()
+    win.emit("scroll")
     expect(reached).to.eq(1)
 
     win.scrollY = 50
-    listener.handleScroll()
+    win.emit("scroll")
     expect(reached).to.eq(2)
 
     win.scrollY = 40
-    listener.handleScroll()
+    win.emit("scroll")
     expect(reached).to.eq(2)
 
     win.scrollY = 45
-    listener.handleScroll()
+    win.emit("scroll")
     expect(reached).to.eq(3)
   })
-
 })

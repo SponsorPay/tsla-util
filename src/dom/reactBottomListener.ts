@@ -1,4 +1,5 @@
 import {ScrollPosition} from "./scrollPosition"
+import throttle = require("lodash.throttle")
 
 export interface ReactBottomListenerParams {
   win: Window
@@ -38,5 +39,11 @@ export class ReactBottomListener {
     } else {
       this.scrollPosition = newScrollPosition // still keep the new position
     }
+  }
+
+  subscribe(delay = 0) {
+    const listener = delay ? throttle(this.handleScroll, delay) : this.handleScroll
+    this.win.addEventListener("scroll", listener)
+    return () => this.win.removeEventListener("scroll", listener)
   }
 }
