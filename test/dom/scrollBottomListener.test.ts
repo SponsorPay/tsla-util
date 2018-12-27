@@ -55,6 +55,10 @@ describe("loadStylesheet.test", function () {
     win.scrollY = 40
     listener.handleScroll()
     expect(reached).to.eq(2)
+
+    win.scrollY = 45
+    listener.handleScroll()
+    expect(reached).to.eq(3)
   })
 
 })

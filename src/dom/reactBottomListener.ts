@@ -35,6 +35,8 @@ export class ReactBottomListener {
       if (onReachBottom != null) {
         onReachBottom()
       }
+    } else {
+      this.scrollPosition = newScrollPosition // still keep the new position
     }
   }
 }
