@@ -18,9 +18,10 @@ interface MockWindow extends Window {
 
 class MockWindow extends EventEmitter implements Window {
   scrollY: number = 0
-
-  addEventListener = this.on.bind(this)
 }
+
+MockWindow.prototype.addEventListener = EventEmitter.prototype.on
+MockWindow.prototype.removeEventListener = EventEmitter.prototype.removeListener
 
 describe("loadStylesheet.test", function () {
   it("should loadStylesheetPoll", async () => {
@@ -60,6 +61,12 @@ describe("loadStylesheet.test", function () {
     expect(reached).to.eq(2)
 
     win.scrollY = 45
+    win.emit("scroll")
+    expect(reached).to.eq(3)
+
+    unsub()
+
+    win.scrollY = 50
     win.emit("scroll")
     expect(reached).to.eq(3)
   })
