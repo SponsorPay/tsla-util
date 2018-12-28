@@ -15,7 +15,6 @@ class AddOne implements Component<number | string, number> {
   }
 }
 
-
 class Square implements Component<number, number> {
   constructor(public child: Element<number, any>) {
   }

@@ -13,5 +13,3 @@ export interface Component<P, N, T = unknown, C = unknown> {
 
   render(): Element<N, any>
 }
-
-
