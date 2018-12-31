@@ -1,3 +1,4 @@
+import {applyMixins} from "ts-trait"
 import {StateHolder} from "./stateHolder"
 
 export abstract class HasState<T> {
@@ -7,3 +8,5 @@ export abstract class HasState<T> {
     return this.stateHolder.getState()
   }
 }
+
+export const hasState = applyMixins([HasState])
