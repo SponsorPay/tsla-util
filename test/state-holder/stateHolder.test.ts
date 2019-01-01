@@ -1,19 +1,38 @@
-import {applyMixins} from "ts-trait"
-import {HasState, LocalStateHolder, StateHolder} from "../../src/state-holder"
 import {expect} from "chai"
+import {EventEmitter} from "events"
+import {hasState, HasState, LocalStateHolder, StateHolder} from "../../src/state-holder"
+import {HasStateEmitter, hasStateEmitter} from "../../src/state-holder/hasStateEmitter"
 
-interface Ctrl extends HasState<{name: string}> {
+interface Ctrl extends HasState<{ name: string }> {
 
 }
 
-@applyMixins([HasState])
-class Ctrl implements HasState<{name: string}> {
-  constructor(stateHolder?: StateHolder<{name: string}>) {
+@hasState
+class Ctrl implements HasState<{ name: string }> {
+  constructor(stateHolder?: StateHolder<{ name: string }>) {
     this.stateHolder = stateHolder || new LocalStateHolder({name: "McLovin"})
   }
 
   changeState() {
     this.state.name = "Peter"
+  }
+}
+
+interface EmitterCtrl extends HasStateEmitter<{ name: string }> {
+
+}
+
+@hasStateEmitter
+class EmitterCtrl implements HasState<{ name: string }> {
+  events = new EventEmitter()
+
+  constructor(stateHolder?: StateHolder<{ name: string }>) {
+    this.stateHolder = stateHolder || new LocalStateHolder({name: "McLovin"})
+  }
+
+  changeState() {
+    this.state.name = "Peter"
+    this.emit("name")
   }
 }
 
@@ -23,6 +42,20 @@ describe("stateHolder.test", function () {
     expect(ctrl.state.name).to.eq("McLovin")
     ctrl.changeState()
     expect(ctrl.state.name).to.eq("Peter")
+  })
+
+  it("should hasStateEmitter", () => {
+    const ctrl = new EmitterCtrl()
+    let fired = 0
+    const listener = () => fired++
+    ctrl.on("name", listener)
+    expect(ctrl.state.name).to.eq("McLovin")
+    ctrl.changeState()
+    expect(ctrl.state.name).to.eq("Peter")
+    expect(fired).to.eq(1)
+    ctrl.off("name", listener)
+    ctrl.changeState()
+    expect(fired).to.eq(1)
   })
 
   it("should get state", () => {
