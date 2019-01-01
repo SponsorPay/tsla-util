@@ -46,12 +46,16 @@ describe("stateHolder.test", function () {
 
   it("should hasStateEmitter", () => {
     const ctrl = new EmitterCtrl()
-    let fired = false
-    ctrl.on("name", () => fired = true)
+    let fired = 0
+    const listener = () => fired++
+    ctrl.on("name", listener)
     expect(ctrl.state.name).to.eq("McLovin")
     ctrl.changeState()
     expect(ctrl.state.name).to.eq("Peter")
-    expect(fired).to.eq(true)
+    expect(fired).to.eq(1)
+    ctrl.off("name", listener)
+    ctrl.changeState()
+    expect(fired).to.eq(1)
   })
 
   it("should get state", () => {
