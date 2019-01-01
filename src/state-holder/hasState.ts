@@ -1,9 +1,11 @@
 import {applyMixins} from "ts-trait"
 import {StateHolder} from "./stateHolder"
 
-export abstract class HasState<T> {
-  abstract stateHolder: StateHolder<T>
+export interface HasState<T> {
+  stateHolder: StateHolder<T>
+}
 
+export class HasState<T> {
   get state() {
     return this.stateHolder.getState()
   }
