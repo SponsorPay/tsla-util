@@ -23,8 +23,8 @@ interface EmitterCtrl extends HasStateEmitter<{ name: string }> {
 }
 
 @hasStateEmitter
-class EmitterCtrl implements HasState<{ name: string }> {
-  events = new EventEmitter()
+class EmitterCtrl implements HasStateEmitter<{ name: string }> {
+  emitter = new EventEmitter()
 
   constructor(stateHolder?: StateHolder<{ name: string }>) {
     this.stateHolder = stateHolder || new LocalStateHolder({name: "McLovin"})
