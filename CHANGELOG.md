@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/kobiburnley/tsla-util/compare/v0.12.0...v0.12.1) (2019-01-08)
+
+
+### Bug Fixes
+
+* has-emitter ([#17](https://github.com/kobiburnley/tsla-util/issues/17)) ([3e0ca5d](https://github.com/kobiburnley/tsla-util/commit/3e0ca5d))
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/kobiburnley/tsla-util/compare/v0.11.3...v0.12.0) (2019-01-03)
 
