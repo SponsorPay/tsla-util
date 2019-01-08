@@ -1,4 +1,5 @@
 import {EventEmitter} from "events"
+import {applyMixins} from "ts-trait"
 
 export interface HasEmitter {
   emitter: EventEmitter
@@ -17,3 +18,5 @@ export class HasEmitter {
     return this.emitter.emit(event, args)
   }
 }
+
+export const hasEmitter = applyMixins([HasEmitter])
