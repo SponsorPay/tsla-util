@@ -15,7 +15,7 @@ export class HasEmitter {
   }
 
   emit(event: string | symbol, ...args: any[]) {
-    return this.emitter.emit(event, args)
+    return this.emitter.emit(event, ...args)
   }
 }
 
