@@ -1,5 +1,5 @@
 import {expect} from "chai"
-import {parseBool, parseNumber, parseString} from "../../src/parse"
+import {parseArray, parseBool, parseNumber, parseString} from "../../src/parse"
 
 require("chai").should()
 
@@ -24,5 +24,13 @@ describe("parse", function () {
     expect(parseNumber(null)).to.eq(0)
     expect(parseNumber(undefined)).to.eq(0)
     expect(parseNumber({})).to.eq(0)
+  })
+
+  it("should parseArray", () => {
+    expect(parseArray(1, e => e)).to.deep.eq([])
+    expect(parseArray(undefined, e => e)).to.deep.eq([])
+    expect(parseArray({}, e => e)).to.deep.eq([])
+    expect(parseArray(null, e => e)).to.deep.eq([])
+    expect(parseArray([1], String)).to.deep.eq(["1"])
   })
 })
