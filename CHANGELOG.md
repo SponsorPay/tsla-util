@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.13.0"></a>
+# [0.13.0](https://github.com/kobiburnley/tsla-util/compare/v0.12.2...v0.13.0) (2019-01-29)
+
+
+### Features
+
+* parse array ([#19](https://github.com/kobiburnley/tsla-util/issues/19)) ([52b13a7](https://github.com/kobiburnley/tsla-util/commit/52b13a7))
+
+
+
 <a name="0.12.2"></a>
 ## [0.12.2](https://github.com/kobiburnley/tsla-util/compare/v0.12.1...v0.12.2) (2019-01-08)
 
