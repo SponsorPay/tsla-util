@@ -9,3 +9,7 @@ export function parseBool(b: any) {
 export function parseNumber(b: any) {
   return b == null || isNaN(b) ? 0 : Number(b)
 }
+
+export function parseArray<T>(e: any, fn: (value: any) => T): T[] {
+  return Array.isArray(e) ? e.map(fn) : []
+}
