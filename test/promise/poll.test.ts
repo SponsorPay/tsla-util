@@ -1,4 +1,4 @@
-import {poll, PollLimitError} from "../../src/promise/poll"
+import {Poll, poll, PollLimitError} from "../../src/promise/poll"
 import {expect} from "chai"
 
 describe("poll.test", function () {
@@ -19,5 +19,22 @@ describe("poll.test", function () {
     }
     expect(error).to.be.instanceOf(Error)
     expect(error.name).to.eq("PollLimitError")
+  })
+
+  it("should dispose", async () => {
+    let n = false
+    setTimeout(() => n = true, 50)
+    const poll = new Poll({
+      runCheck: () => n,
+      delay: 5
+    })
+    setTimeout(() => poll.dispose(), 25)
+    let error
+    try {
+      await poll.promise
+    } catch (e) {
+      error = e
+    }
+    expect(error.name).to.eq("PollDisposedError")
   })
 })
