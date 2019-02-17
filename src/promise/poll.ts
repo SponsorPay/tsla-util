@@ -1,3 +1,5 @@
+import {defer, Defer} from "./defer"
+
 export interface PollOptions {
   delay?: number
   retries?: number
@@ -20,31 +22,37 @@ export interface Poll {
 
 export class Poll {
   disposed = false
-  promise: Promise<void>
+  defer: Defer<void>
+  timeoutId?: number | object
 
   constructor({runCheck, delay = 1000, retries = 50}: PollParams) {
-    this.promise = new Promise(
-      (resolve, reject) => {
-        const retry = async () => {
-          if (!this.disposed) {
-            if (await runCheck()) {
-              resolve()
-            } else if (retries-- > 0) {
-              setTimeout(retry, delay)
-            } else {
-              reject(new PollLimitError())
-            }
-          } else {
-            reject(new PollDisposedError())
-          }
+    this.defer = defer()
+    const retry = async () => {
+      if (!this.disposed) {
+        if (await runCheck()) {
+          this.defer.resolve()
+        } else if (retries-- > 0) {
+          this.timeoutId = setTimeout(retry, delay)
+        } else {
+          this.defer.reject(new PollLimitError())
         }
-        retry()
+      } else {
+        this.defer.reject(new PollDisposedError())
       }
-    )
+    }
+    retry()
+  }
+
+  get promise() {
+    return this.defer.promise
   }
 
   dispose() {
     this.disposed = true
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId as number)
+      this.defer.reject(new PollDisposedError())
+    }
   }
 }
 

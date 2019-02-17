@@ -37,4 +37,30 @@ describe("poll.test", function () {
     }
     expect(error.name).to.eq("PollDisposedError")
   })
+
+  it("should dispose before first run", async () => {
+    const poll = new Poll({
+      runCheck: () => false,
+      delay: 50
+    })
+    poll.dispose()
+    let error
+    try {
+      await poll.promise
+    } catch (e) {
+      error = e
+    }
+    expect(error.name).to.eq("PollDisposedError")
+  })
+
+  it("should resolve if disposed after poll success", async () => {
+    let n = false
+    setTimeout(() => n = true, 50)
+    const poll = new Poll({
+      runCheck: () => n,
+      delay: 5
+    })
+    setTimeout(() => poll.dispose(), 75)
+    await poll.promise
+  })
 })
