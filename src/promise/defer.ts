@@ -1,4 +1,3 @@
-
 export class Defer<T> {
   promise: Promise<T>
   resolve!: (value?: T | PromiseLike<T>) => void
