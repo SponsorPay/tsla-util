@@ -28,6 +28,10 @@ export abstract class Option<T> {
   flatMap<E>(fn: (t: T) => Option<E>): Option<E> {
     return this.isEmpty ? None.none as any : fn(this.get)
   }
+
+  orElse<E>(alternative: () => Option<E>): Option<E | T> {
+    return this.isEmpty ? alternative() : this
+  }
 }
 
 assignPropertyDescriptors(Some.prototype, Option.prototype)
