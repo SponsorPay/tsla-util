@@ -17,6 +17,14 @@ export abstract class Option<T> {
 
   abstract get get(): T
 
+  isSome(): this is Some<T> {
+    return this.isNotEmpty
+  }
+
+  isNone(): this is None {
+    return this.isEmpty
+  }
+
   getOrElse(fallback: Fallback<T>): T {
     return this.isEmpty ? getFallback(fallback) : this.get
   }
