@@ -1,5 +1,5 @@
 import {expect} from "chai"
-import {parseArray, parseBool, parseNumber, parseString} from "../../src/parse"
+import {parseArray, parseBool, parseNumber, parseObject, parseString} from "../../src/parse"
 
 require("chai").should()
 
@@ -32,5 +32,26 @@ describe("parse", function () {
     expect(parseArray({}, e => e)).to.deep.eq([])
     expect(parseArray(null, e => e)).to.deep.eq([])
     expect(parseArray([1], String)).to.deep.eq(["1"])
+  })
+
+  it("should parseObject", () => {
+    expect(parseObject(null).isEmpty).to.eq(true)
+    expect(parseObject(undefined).isEmpty).to.eq(true)
+
+    let parsedError = parseObject<Error>({message: "Ta"}).map(
+      e => new Error(e.message)
+    )
+    expect(parsedError.isSome()).to.eq(true)
+    if (parsedError.isSome()) {
+      expect(parsedError.value.message).to.eq("Ta")
+    }
+
+    parsedError = parseObject<Error>("").map(
+      e => new Error(parseString(e.message))
+    )
+    expect(parsedError.isSome()).to.eq(true)
+    if (parsedError.isSome()) {
+      expect(parsedError.value.message).to.eq("")
+    }
   })
 })
