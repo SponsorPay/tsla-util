@@ -43,7 +43,7 @@ describe("option", function () {
     expect(option.isNone()).to.eq(false)
     expect(option.isSome()).to.eq(true)
 
-    if(option.isSome()) {
+    if (option.isSome()) {
       expect(option.value).to.eq("result")
     }
   })
