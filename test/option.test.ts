@@ -31,4 +31,20 @@ describe("option", function () {
   it("Option.map should be safe", () => {
     Option.of({a: null as any}).map(e => e.a).map(e => e.b).should.eq(None.none)
   })
+
+  it("Option.isNone", () => {
+    const option = Option.of(undefined as string | undefined)
+    expect(option.isNone()).to.eq(true)
+    expect(option.isSome()).to.eq(false)
+  })
+
+  it("Option.isSome", () => {
+    const option = Option.of("result")
+    expect(option.isNone()).to.eq(false)
+    expect(option.isSome()).to.eq(true)
+
+    if(option.isSome()) {
+      expect(option.value).to.eq("result")
+    }
+  })
 })
