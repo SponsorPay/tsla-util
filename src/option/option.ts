@@ -17,6 +17,14 @@ export abstract class Option<T> {
 
   abstract get get(): T
 
+  isSome(): this is Some<T> {
+    return this.isNotEmpty
+  }
+
+  isNone(): this is None {
+    return this.isEmpty
+  }
+
   getOrElse(fallback: Fallback<T>): T {
     return this.isEmpty ? getFallback(fallback) : this.get
   }
@@ -27,6 +35,10 @@ export abstract class Option<T> {
 
   flatMap<E>(fn: (t: T) => Option<E>): Option<E> {
     return this.isEmpty ? None.none as any : fn(this.get)
+  }
+
+  orElse<E>(alternative: () => Option<E>): Option<E | T> {
+    return this.isEmpty ? alternative() : this
   }
 }
 

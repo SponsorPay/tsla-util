@@ -13,4 +13,8 @@ export class Some<T> implements Option<T> {
   get get() {
     return this.t
   }
+
+  get value(): T {
+    return this.t
+  }
 }
