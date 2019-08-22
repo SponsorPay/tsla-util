@@ -51,6 +51,6 @@ describe("option", function () {
   it("Option.filter", () => {
     None.none.filter(() => true).should.eq(None.none)
     Option.of("result").filter(() => false)
-    Option.of("result").filter(r => r.startsWith("r")).get.should.eq("result")
+    Option.of("result").filter(r => r.startsWith("re")).get.should.eq("result")
   })
 })
