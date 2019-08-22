@@ -40,6 +40,18 @@ export abstract class Option<T> {
   orElse<E>(alternative: () => Option<E>): Option<E | T> {
     return this.isEmpty ? alternative() : this
   }
+
+  filter(predicate: (t: T) => boolean): Option<T> {
+    if (this.isEmpty) {
+      return None.none as any
+    }
+
+    if (predicate(this.get)) {
+      return this
+    }
+
+    return None.none as any
+  }
 }
 
 assignPropertyDescriptors(Some.prototype, Option.prototype)
