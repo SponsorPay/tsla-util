@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/kobiburnley/tsla-util/compare/v0.17.0...v1.0.0) (2019-08-31)
+
+
+### Features
+
+* **Option:** union type ([#32](https://github.com/kobiburnley/tsla-util/issues/32)) ([1e79c1e](https://github.com/kobiburnley/tsla-util/commit/1e79c1e))
+
+
+### BREAKING CHANGES
+
+* **Option:** Option union type
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/kobiburnley/tsla-util/compare/v0.16.0...v0.17.0) (2019-06-20)
 
