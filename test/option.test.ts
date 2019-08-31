@@ -57,4 +57,15 @@ describe("option", function () {
       expect(option.value).to.eq("result")
     }
   })
+
+  it("filter", () => {
+    None.none.filter(() => true).should.eq(None.none)
+    Option.of("result").filter(() => false)
+    Option.of("result").filter(r => r.startsWith("re")).get!.should.eq("result")
+  })
+
+  it("orElse", () => {
+    expect(None.none.orElse(() => Option.of("else")).get).to.eq("else")
+    expect(Option.of("result").orElse(() => Option.of("else")).get).to.eq("result")
+  })
 })
