@@ -4,7 +4,7 @@ import { None } from "../src/option/none"
 
 require("chai").should()
 
-describe("option", function() {
+describe("option", function () {
   it("should option", () => {
     Option.of("result")
       .getOrElse("fb")
