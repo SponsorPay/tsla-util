@@ -1,17 +1,17 @@
-import {Fallback} from "../fallback"
-import {Option} from "../option"
+import { Fallback } from "../fallback"
+import { optionOf } from "../option/optionOf"
+import { Option } from "../option/option"
 
 function withTryCatch<T>(fn: () => T) {
   let when: T | null = null
   try {
     when = fn()
-  } catch (e) {
-  }
+  } catch (e) {}
   return when
 }
 
 export function tryCatch<T>(fn: () => T) {
-  return Option.of(withTryCatch(fn))
+  return optionOf(withTryCatch(fn))
 }
 
 export class Try<T> {
@@ -19,11 +19,10 @@ export class Try<T> {
     return new Try(fn)
   }
 
-  constructor(private fn: () => T) {
-  }
+  constructor(private fn: () => T) {}
 
-  get asOption() {
-    return Option.of(this.get())
+  get asOption(): Option<T> {
+    return optionOf(this.get())
   }
 
   getOrElse(fallback: Fallback<T>): T {

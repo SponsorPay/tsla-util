@@ -1,16 +1,14 @@
-import {Option} from "./option"
+import { assignPropertyDescriptors } from "ts-trait/build/assign"
+import { OptionBase } from "./optionBase"
 
-export interface Some<T> extends Option<T> {
+export interface Some<T> extends OptionBase<T> {}
 
-}
-
-export class Some<T> implements Option<T> {
+export class Some<T> implements OptionBase<T> {
   isEmpty = false
 
-  constructor(private t: T) {
-  }
+  constructor(private t: T) {}
 
-  get get() {
+  get get(): T {
     return this.t
   }
 
@@ -18,3 +16,5 @@ export class Some<T> implements Option<T> {
     return this.t
   }
 }
+
+assignPropertyDescriptors(Some.prototype, OptionBase.prototype)
