@@ -22,31 +22,16 @@ export abstract class OptionBase<T> {
     return this.isEmpty
   }
 
-  getOrElse(this: Option<T>, fallback: Fallback<T>): T {
-    return this.isNone() ? getFallback(fallback) : this.get
-  }
+  abstract getOrElse(this: Option<T>, fallback: Fallback<T>): T
 
-  map<E>(this: Option<T>, fn: (t: T) => Nullable<E>): Option<E> {
-    return this.isNone() ? (None.none as Option<E>) : optionOf(fn(this.get))
-  }
+  abstract map<E>(this: Option<T>, fn: (t: T) => Nullable<E>): Option<E>
 
-  flatMap<E>(this: Option<T>, fn: (t: T) => Option<E>): Option<E> {
-    return this.isNone() ? (None.none as Option<E>) : fn(this.get)
-  }
+  abstract flatMap<E>(this: Option<T>, fn: (t: T) => Option<E>): Option<E>
 
-  orElse<E>(this: Option<T>, alternative: () => Option<E>): Option<E | T> {
-    return this.isEmpty ? alternative() : this
-  }
+  abstract orElse<E>(
+    this: Option<T>,
+    alternative: () => Option<E>
+  ): Option<E | T>
 
-  filter(this: Option<T>, predicate: (t: T) => boolean): Option<T> {
-    if (this.isNone()) {
-      return None.none as Option<T>
-    }
-
-    if (predicate(this.get)) {
-      return this
-    }
-
-    return None.none as Option<T>
-  }
+  abstract filter(this: Option<T>, predicate: (t: T) => boolean): Option<T>
 }
