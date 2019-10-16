@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.17.3"></a>
+## [0.17.3](https://github.com/kobiburnley/tsla-util/compare/v0.17.1...v0.17.3) (2019-10-16)
+
+
+
 <a name="0.17.2"></a>
 ## [0.17.2](https://github.com/kobiburnley/tsla-util/compare/v0.17.0...v0.17.2) (2019-10-16)
 
