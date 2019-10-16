@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.17.2"></a>
+## [0.17.2](https://github.com/kobiburnley/tsla-util/compare/v0.17.0...v0.17.2) (2019-10-16)
+
+
+### Bug Fixes
+
+* **Poll:** unhandled promise rejection ([#33](https://github.com/kobiburnley/tsla-util/issues/33)) ([a73b4c7](https://github.com/kobiburnley/tsla-util/commit/a73b4c7))
+
+
+
 <a name="0.17.1"></a>
 ## [0.17.1](https://github.com/kobiburnley/tsla-util/compare/v0.17.0...v0.17.1) (2019-10-16)
 
