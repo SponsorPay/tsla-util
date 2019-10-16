@@ -63,4 +63,20 @@ describe("poll.test", function () {
     setTimeout(() => poll.dispose(), 75)
     await poll.promise
   })
+
+  it("should not swallow promise rejection", async () => {
+    const poll = new Poll({
+      runCheck: async () => {
+        throw new Error("Error inside runCheck")
+      },
+      delay: 5
+    })
+    let error: Error
+    try {
+      await poll.promise
+    } catch (e) {
+      error = e
+    }
+    expect(error!.message).to.eq("Error inside runCheck")
+  })
 })

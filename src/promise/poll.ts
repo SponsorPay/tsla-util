@@ -29,12 +29,16 @@ export class Poll {
     this.defer = defer()
     const retry = async () => {
       if (!this.disposed) {
-        if (await runCheck()) {
-          this.defer.resolve()
-        } else if (retries-- > 0) {
-          this.timeoutId = setTimeout(retry, delay)
-        } else {
-          this.defer.reject(new PollLimitError())
+        try {
+          if (await runCheck()) {
+            this.defer.resolve()
+          } else if (retries-- > 0) {
+            this.timeoutId = setTimeout(retry, delay)
+          } else {
+            this.defer.reject(new PollLimitError())
+          }
+        } catch (e) {
+          this.defer.reject(e)
         }
       } else {
         this.defer.reject(new PollDisposedError())
