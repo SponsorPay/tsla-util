@@ -79,4 +79,20 @@ describe("poll.test", function () {
     }
     expect(error!.message).to.eq("Error inside runCheck")
   })
+
+  it("should get result from promise", async () => {
+    let flag = 0
+    const poll = new Poll({
+      runCheck: async () => {
+        if (flag > 0) {
+          return "RESULT"
+        }
+        flag++
+        return false
+      },
+      delay: 5
+    })
+    const result = await poll.promise
+    expect(result).to.eq("RESULT")
+  })
 })
