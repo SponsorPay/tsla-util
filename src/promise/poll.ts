@@ -13,28 +13,36 @@ export class PollDisposedError extends Error {
   name = "PollDisposedError"
 }
 
-export interface PollParams extends PollOptions {
-  runCheck: () => boolean | Promise<boolean>
+export type OrPromise<T> = T | Promise<T>
+
+export type RunCheck<T> = () => OrPromise<T | false>
+
+export interface PollParams<T> extends PollOptions {
+  runCheck: RunCheck<T>
 }
 
-export interface Poll {
-}
+export interface Poll<T> {}
 
-export class Poll {
+export class Poll<T> {
   disposed = false
-  defer: Defer<void>
+  defer: Defer<T>
   timeoutId?: number | object
 
-  constructor({runCheck, delay = 1000, retries = 50}: PollParams) {
+  constructor({runCheck, delay = 1000, retries = 50}: PollParams<T>) {
     this.defer = defer()
     const retry = async () => {
       if (!this.disposed) {
-        if (await runCheck()) {
-          this.defer.resolve()
-        } else if (retries-- > 0) {
-          this.timeoutId = setTimeout(retry, delay)
-        } else {
-          this.defer.reject(new PollLimitError())
+        try {
+          const result = await runCheck()
+          if (result !== false) {
+            this.defer.resolve(result)
+          } else if (retries-- > 0) {
+            this.timeoutId = setTimeout(retry, delay)
+          } else {
+            this.defer.reject(new PollLimitError())
+          }
+        } catch (e) {
+          this.defer.reject(e)
         }
       } else {
         this.defer.reject(new PollDisposedError())
@@ -56,8 +64,8 @@ export class Poll {
   }
 }
 
-export function poll(
-  runCheck: () => boolean | Promise<boolean>,
+export function poll<T>(
+  runCheck: RunCheck<T>,
   {delay = 1000, retries = 50}: PollOptions = {},
 ) {
   return new Poll({

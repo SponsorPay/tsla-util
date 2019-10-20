@@ -63,4 +63,36 @@ describe("poll.test", function () {
     setTimeout(() => poll.dispose(), 75)
     await poll.promise
   })
+
+  it("should not swallow promise rejection", async () => {
+    const poll = new Poll({
+      runCheck: async () => {
+        throw new Error("Error inside runCheck")
+      },
+      delay: 5
+    })
+    let error: Error
+    try {
+      await poll.promise
+    } catch (e) {
+      error = e
+    }
+    expect(error!.message).to.eq("Error inside runCheck")
+  })
+
+  it("should get result from promise", async () => {
+    let flag = 0
+    const poll = new Poll({
+      runCheck: async () => {
+        if (flag > 0) {
+          return "RESULT"
+        }
+        flag++
+        return false
+      },
+      delay: 5
+    })
+    const result = await poll.promise
+    expect(result).to.eq("RESULT")
+  })
 })

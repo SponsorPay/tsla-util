@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/kobiburnley/tsla-util/compare/v1.0.2...v1.1.0) (2019-10-20)
+
+
+### Features
+
+* incremental ci build ([#37](https://github.com/kobiburnley/tsla-util/issues/37)) ([7e0c49c](https://github.com/kobiburnley/tsla-util/commit/7e0c49c))
+
+
+
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/kobiburnley/tsla-util/compare/v1.0.1...v1.0.2) (2019-10-17)
+
+
+### Bug Fixes
+
+* **Poll:** send promise result in Poll.promise ([#35](https://github.com/kobiburnley/tsla-util/issues/35)) ([d758b7e](https://github.com/kobiburnley/tsla-util/commit/d758b7e))
+
+
+
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/kobiburnley/tsla-util/compare/v1.0.0...v1.0.1) (2019-10-16)
+
+
+### Bug Fixes
+
+* **Poll:** unhandled promise rejection ([#34](https://github.com/kobiburnley/tsla-util/issues/34)) ([6859f6e](https://github.com/kobiburnley/tsla-util/commit/6859f6e))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/kobiburnley/tsla-util/compare/v0.17.0...v1.0.0) (2019-08-31)
 
