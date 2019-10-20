@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
@@ -18,6 +19,7 @@
     "declaration": true,
     "outDir": "lib",
     "sourceRoot": "src",
+    "rootDir": "src",
     "jsx": "react",
     "importHelpers": true,
     "skipLibCheck": true,
