@@ -34,7 +34,7 @@ export function parseMapEntry<K, V>(
   if (Array.isArray(entry)) {
     return [parseKey(entry[0]), parseValue(entry[1])]
   }
-  return [parseKey(null), parseValue(null)]
+  return [parseKey(), parseValue()]
 }
 
 export function parseObject<T>(param: unknown): Option<Partial<T>> {
