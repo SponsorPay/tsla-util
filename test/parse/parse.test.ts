@@ -1,9 +1,18 @@
 import {expect} from "chai"
-import {parseArray, parseBool, parseMap, parseMapEntry, parseNumber, parseObject, parseString} from "../../src/parse"
+import {
+  parseArray,
+  parseBool,
+  parseMap,
+  parseMapEntry,
+  parseNumber,
+  parseObject,
+  parseRecord,
+  parseString
+} from "../../src/parse"
 
 require("chai").should()
 
-describe("parse", function () {
+describe("parse", function() {
   it("should parseString", () => {
     expect(parseString("nice")).to.eq("nice")
     expect(parseString(null)).to.eq("")
@@ -38,26 +47,25 @@ describe("parse", function () {
     expect(parseObject(null).isEmpty).to.eq(true)
     expect(parseObject(undefined).isEmpty).to.eq(true)
 
-    let parsedError = parseObject<Error>({message: "Ta"}).map(
-      e => new Error(e.message)
-    )
+    let parsedError = parseObject<Error>({message: "Ta"}).map(e => new Error(e.message))
     expect(parsedError.isSome()).to.eq(true)
     if (parsedError.isSome()) {
       expect(parsedError.value.message).to.eq("Ta")
     }
 
-    parsedError = parseObject<Error>("").map(
-      e => new Error(parseString(e.message))
-    )
+    parsedError = parseObject<Error>("").map(e => new Error(parseString(e.message)))
     expect(parsedError.isSome()).to.eq(true)
     if (parsedError.isSome()) {
       expect(parsedError.value.message).to.eq("")
     }
   })
 
-  describe("parseMapEntry", function () {
+  describe("parseMapEntry", function() {
     it("should parseMapEntry", () => {
-      const rawMapEntry1 = parseMapEntry(["a", "1"], {parseKey: parseString, parseValue: parseString})
+      const rawMapEntry1 = parseMapEntry(["a", "1"], {
+        parseKey: parseString,
+        parseValue: parseString
+      })
       expect(rawMapEntry1[0]).to.eq("a")
       expect(rawMapEntry1[1]).to.eq("1")
     })
@@ -69,7 +77,7 @@ describe("parse", function () {
     })
   })
 
-  describe("parseMap", function () {
+  describe("parseMap", function() {
     it("should parseMap", () => {
       const rawMap1 = parseMap({a: "1", b: "2"}, {parseKey: parseString, parseValue: parseString})
       expect(rawMap1.size).to.eq(2)
@@ -80,6 +88,16 @@ describe("parse", function () {
     it("should parseMap null", () => {
       const rawMap2 = parseMap(null, {parseKey: parseString, parseValue: parseString})
       expect(rawMap2.size).to.eq(0)
+    })
+  })
+
+  describe("parseRecord", function() {
+    it("should parseRecord", () => {
+      expect(parseRecord({a: "1", b: "2"}, {parseValue: parseString})).to.deep.eq({a: "1", b: "2"})
+    })
+
+    it("should parseMap null", () => {
+      expect(parseRecord(null, {parseValue: parseString})).to.deep.eq({})
     })
   })
 })
