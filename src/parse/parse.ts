@@ -26,9 +26,27 @@ export function parseMap<K, V>(
   {parseKey, parseValue}: {parseKey: (k?: unknown) => K; parseValue: (v?: unknown) => V}
 ): Map<K, V> {
   if (isObject(e)) {
-    return new Map(Object.keys(e).map(key => parseMapEntry([key, e[key as keyof typeof e]], {parseKey, parseValue})))
+    return new Map(
+      Object.keys(e).map(key =>
+        parseMapEntry([key, e[key as keyof typeof e]], {parseKey, parseValue})
+      )
+    )
   }
   return new Map()
+}
+
+export function parseRecord<V>(
+  e: unknown,
+  {parseValue}: {parseValue: (v?: unknown) => V}
+): Record<string, V> {
+  if (isObject(e)) {
+    const result: Record<string, V> = {}
+    for (const key of Object.keys(e)) {
+      result[key] = parseValue(e[key as keyof typeof e])
+    }
+    return result
+  }
+  return {}
 }
 
 export function parseMapEntry<K, V>(
