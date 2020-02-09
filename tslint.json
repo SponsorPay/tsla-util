@@ -34,9 +34,7 @@
       "triple-equals": false,
       "no-empty": false,
       "array-type": false,
-      "space-before-function-paren": [true, {
-        "anonymous": "always"
-      }]
+      "space-before-function-paren": false
     },
     "rulesDirectory": []
 }
