@@ -1,5 +1,5 @@
 import {expect} from "chai"
-import {parseArray, parseBool, parseNumber, parseObject, parseString} from "../../src/parse"
+import {parseArray, parseBool, parseMap, parseMapEntry, parseNumber, parseObject, parseString} from "../../src/parse"
 
 require("chai").should()
 
@@ -53,5 +53,33 @@ describe("parse", function () {
     if (parsedError.isSome()) {
       expect(parsedError.value.message).to.eq("")
     }
+  })
+
+  describe("parseMapEntry", function () {
+    it("should parseMapEntry", () => {
+      const rawMapEntry1 = parseMapEntry(["a", "1"], {parseKey: parseString, parseValue: parseString})
+      expect(rawMapEntry1[0]).to.eq("a")
+      expect(rawMapEntry1[1]).to.eq("1")
+    })
+
+    it("should parseMapEntry non array entry", () => {
+      const rawMapEntry2 = parseMapEntry({}, {parseKey: parseString, parseValue: parseString})
+      expect(rawMapEntry2[0]).to.eq("")
+      expect(rawMapEntry2[1]).to.eq("")
+    })
+  })
+
+  describe("parseMap", function () {
+    it("should parseMap", () => {
+      const rawMap1 = parseMap({a: "1", b: "2"}, {parseKey: parseString, parseValue: parseString})
+      expect(rawMap1.size).to.eq(2)
+      expect(rawMap1.get("a")).to.eq("1")
+      expect(rawMap1.get("b")).to.eq("2")
+    })
+
+    it("should parseMap null", () => {
+      const rawMap2 = parseMap(null, {parseKey: parseString, parseValue: parseString})
+      expect(rawMap2.size).to.eq(0)
+    })
   })
 })
