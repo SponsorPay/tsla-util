@@ -6,10 +6,9 @@ declare global {
 
 @extension([Function])
 export class FunctionCompose {
-  compose<P, R1, C>(this: (p: P) => R1, other: (r: R1) => C): (p: P) => C
-  compose(this: Function, other: Function) {
-    return (...args: any[]) => {
-      return other(this(...args))
+  compose<P, R1, C>(this: (p: P) => R1, other: (r: R1) => C): (p: P) => C {
+    return (p: P) => {
+      return other(this(p))
     }
   }
 }
