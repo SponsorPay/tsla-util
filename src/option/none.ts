@@ -7,7 +7,11 @@ import { OptionBase } from "./optionBase"
 export interface None<T> extends OptionBase<T> {}
 
 export class None<T> implements OptionBase<T> {
-  static none = new None<unknown>()
+  static noneInstance = new None<unknown>()
+
+  static none<T>(): Option<T> {
+    return None.noneInstance as Option<T>
+  }
 
   isEmpty = true
 
@@ -20,11 +24,11 @@ export class None<T> implements OptionBase<T> {
   }
 
   map<E>(fn: (t: T) => Nullable<E>): Option<E> {
-    return None.none as Option<E>
+    return None.none()
   }
 
   flatMap<E>(fn: (t: T) => Option<E>): Option<E> {
-    return None.none as Option<E>
+    return None.none()
   }
 
   orElse<E>(alternative: () => Option<E>): Option<E | T> {
@@ -32,7 +36,7 @@ export class None<T> implements OptionBase<T> {
   }
 
   filter(predicate: (t: T) => boolean): Option<T> {
-    return None.none as Option<T>
+    return None.none()
   }
 }
 
