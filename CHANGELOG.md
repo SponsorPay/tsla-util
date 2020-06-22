@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/SponsorPay/tsla-util/compare/v2.2.1...v2.2.2) (2020-06-22)
+
+
+### Bug Fixes
+
+* README.md message ([613afff](https://github.com/SponsorPay/tsla-util/commit/613afff))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/kobiburnley/tsla-util/compare/v2.2.0...v2.2.1) (2020-05-22)
 
