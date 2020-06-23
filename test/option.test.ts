@@ -20,16 +20,15 @@ describe("option", function () {
   })
 
   it("Option.none should be safe", () => {
-    const none = None.none as Option<any>
-    none.map(x => x.toString()).should.eq(Option.of(null))
-    none.flatMap(x => Option.of(x.toString())).should.eq(Option.of(null))
+    None.none<{}>().map(x => x.toString()).should.eq(Option.of(null))
+    None.none<{}>().flatMap(x => Option.of(x.toString())).should.eq(Option.of(null))
   })
 
   it("Some(null) should be safe", () => {
     Option.of("value")
       .map(() => null)
       .map(() => null)
-      .should.eq(None.none)
+      .should.eq(None.none())
     // const some = new Some(null) as Option<any>
     // some.map(x => x.toString()).should.eq(Option.of(null))
     // some.flatMap(x => Option.of(x!.toString())).should.eq(Option.of(null))
@@ -39,7 +38,7 @@ describe("option", function () {
     Option.of({ a: null as any })
       .map(e => e.a)
       .map(e => e.b)
-      .should.eq(None.none)
+      .should.eq(None.none())
   })
 
   it("Option.isNone", () => {
@@ -59,13 +58,13 @@ describe("option", function () {
   })
 
   it("filter", () => {
-    None.none.filter(() => true).should.eq(None.none)
+    None.none().filter(() => true).should.eq(None.none())
     Option.of("result").filter(() => false)
     Option.of("result").filter(r => r.startsWith("re")).get!.should.eq("result")
   })
 
   it("orElse", () => {
-    expect(None.none.orElse(() => Option.of("else")).get).to.eq("else")
+    expect(None.none().orElse(() => Option.of("else")).get).to.eq("else")
     expect(Option.of("result").orElse(() => Option.of("else")).get).to.eq("result")
   })
 })

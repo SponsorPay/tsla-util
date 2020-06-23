@@ -42,7 +42,7 @@ export class Some<T> implements OptionBase<T> {
       return this
     }
 
-    return None.none as Option<T>
+    return None.none()
   }
 }
 
